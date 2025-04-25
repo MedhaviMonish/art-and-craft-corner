@@ -1,10 +1,18 @@
+import Hero from '@/components/Hero'
+
 export default function HomePage() {
   return (
-    <div className="text-center">
-      <h1 className="text-4xl font-bold mb-4">Welcome to Art &amp; Craft Corner!</h1>
-      <p className="text-lg text-gray-700">
-        Explore fun tutorials, craft projects, and beautiful artwork by Rawwi Kumari.
-      </p>
-    </div>
+    <>
+      {/* Hero section */}
+      <Hero />
+
+      {/* Below this you can re-add your stub content or real homepage sections */}
+      <section className="container mx-auto px-6 py-12">
+        <h2 className="text-3xl font-semibold">Welcome to Art & Craft Corner!</h2>
+        <p className="mt-4 text-gray-700">
+          Explore fun tutorials, craft projects, and beautiful artwork by Rawwi Kumari.
+        </p>
+      </section>
+    </>
   )
 }

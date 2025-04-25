@@ -19,7 +19,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
             {/* Logo */}
             <Link href="/" className="block">
               <Image
-                src="/logo1.png"
+                src="/images/logo1.png"
                 alt="Art & Craft Corner logo"
                 width={48}
                 height={48}

@@ -8,7 +8,7 @@ export default function Hero() {
     <section className="relative h-[70vh] md:h-[80vh] w-full">
       <div className="absolute inset-0 -z-10">
         <Image
-          src="/BG.png"
+          src="/images/hero-wood-bg.png"
           alt="Wood background with art supplies"
           fill
           style={{ objectFit: 'cover', objectPosition: 'center' }}

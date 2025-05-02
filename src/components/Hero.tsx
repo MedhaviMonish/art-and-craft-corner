@@ -25,6 +25,12 @@ export default function Hero() {
         <p className="mt-4 mb-6 text-lg md:text-xl text-white/90 max-w-xl drop-shadow">
           Explore paintings, tutorials, and colorful ideas for all ages.
         </p>
+        <h2>
+          We are still under developement so please be patient with us. 😊
+        </h2>
+        <h2>
+          You can still contact us.
+        </h2>
         <Link
           href="/gallery"
           className="mt-2 inline-block bg-yellow-400 hover:bg-yellow-500 text-gray-900 font-semibold rounded-full px-8 py-4 shadow-lg transition"

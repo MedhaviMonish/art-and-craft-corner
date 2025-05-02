@@ -1,11 +1,9 @@
-// File: src/components/Hero.tsx
-
 import Image from 'next/image'
 import Link from 'next/link'
 
 export default function Hero() {
   return (
-    <section className="relative h-[70vh] md:h-[80vh] w-full">
+    <section className="relative py-30">
       <div className="absolute inset-0 -z-10">
         <Image
           src="/images/hero-wood-bg.png"
@@ -14,26 +12,21 @@ export default function Hero() {
           style={{ objectFit: 'cover', objectPosition: 'center' }}
           priority
         />
-        {/* remove or adjust overlay intensity if you like */}
         <div className="absolute inset-0 bg-black/20" />
       </div>
 
-      <div className="container mx-auto h-full flex flex-col justify-center items-center text-center px-4">
-        <h1 className="text-5xl md:text-6xl font-extrabold text-white drop-shadow-lg">
+      <div className="container mx-auto flex flex-col justify-center items-center text-center px-4 space-y-3">
+        <h1 className="text-4xl md:text-5xl font-extrabold text-white drop-shadow-lg">
           Inspiration for the Creative Crafter
         </h1>
-        <p className="mt-4 mb-6 text-lg md:text-xl text-white/90 max-w-xl drop-shadow">
+        <p className="text-base md:text-lg text-white/90 max-w-xl drop-shadow">
           Explore paintings, tutorials, and colorful ideas for all ages.
         </p>
-        <h2>
-          We are still under developement so please be patient with us. 😊
-        </h2>
-        <h2>
-          You can still contact us.
-        </h2>
+        <p className="text-white">We are still under development, so please be patient with us. 😊</p>
+        <p className="text-white">You can still contact us.</p>
         <Link
           href="/gallery"
-          className="mt-2 inline-block bg-yellow-400 hover:bg-yellow-500 text-gray-900 font-semibold rounded-full px-8 py-4 shadow-lg transition"
+          className="inline-block bg-yellow-400 hover:bg-yellow-500 text-gray-900 font-semibold rounded-full px-6 py-3 shadow-lg transition"
         >
           View Paintings
         </Link>

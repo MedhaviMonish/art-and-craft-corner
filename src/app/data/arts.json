@@ -15,7 +15,7 @@
       "colorful",
       "traditional"
     ],
-    "available": false
+    "available": true
   },
   {
     "file_name": "2.jpeg",
@@ -51,7 +51,7 @@
       "portrait",
       "traditional"
     ],
-    "available": false
+    "available": true
   },
   {
     "file_name": "4.jpeg",
@@ -69,7 +69,7 @@
       "mythology",
       "gold"
     ],
-    "available": false
+    "available": true
   },
   {
     "file_name": "5.jpeg",
@@ -123,7 +123,7 @@
       "triptych",
       "nature"
     ],
-    "available": false
+    "available": true
   },
   {
     "file_name": "8.jpeg",
@@ -141,7 +141,7 @@
       "classical",
       "realistic"
     ],
-    "available": false
+    "available": true
   },
   {
     "file_name": "9.jpeg",
@@ -159,7 +159,7 @@
       "classical",
       "realistic"
     ],
-    "available": false
+    "available": true
   },
   {
     "file_name": "10.jpeg",
@@ -195,7 +195,7 @@
       "mythology",
       "gold"
     ],
-    "available": false
+    "available": true
   },
   {
     "file_name": "12.jpeg",
@@ -213,7 +213,7 @@
       "water",
       "nature"
     ],
-    "available": false
+    "available": true
   },
   {
     "file_name": "13.jpeg",
@@ -267,7 +267,7 @@
       "battle",
       "epic"
     ],
-    "available": false
+    "available": true
   },
   {
     "file_name": "16.jpeg",
@@ -285,7 +285,7 @@
       "monochrome",
       "bold"
     ],
-    "available": false
+    "available": true
   },
   {
     "file_name": "17.jpeg",
@@ -321,7 +321,7 @@
       "motion",
       "elegant"
     ],
-    "available": false
+    "available": true
   },
   {
     "file_name": "19.jpeg",
@@ -339,7 +339,7 @@
       "portrait",
       "serene"
     ],
-    "available": false
+    "available": true
   },
   {
     "file_name": "20.jpeg",

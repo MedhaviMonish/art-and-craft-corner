@@ -42,7 +42,7 @@ export default function ShopPage() {
             <div className="p-4 bg-white rounded-b-2xl shadow">
               <h2 className="text-lg font-semibold">{art.title}</h2>
               <p className="text-gray-600 text-sm">{art.medium}</p>
-              <p className="text-pink-600 font-semibold">₹{art.price_inr}</p>
+              {/* <p className="text-pink-600 font-semibold">₹{art.price_inr}</p> */}
               <button
                 className="mt-2 text-sm bg-indigo-600 text-white px-3 py-1 rounded-full hover:bg-indigo-700 transition"
                 onClick={() =>

@@ -96,7 +96,7 @@ export default function VideosPage() {
         Here you’ll find all my video tutorials on painting and crafts.
       </p>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
         {video_urls.map((video, index) => {
           const videoId = video.url.split("v=")[1];
           return (

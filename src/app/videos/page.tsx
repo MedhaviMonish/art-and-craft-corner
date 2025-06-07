@@ -12,7 +12,7 @@ const fetcher = (url: string) => fetch(url).then(res => res.json());
 
 export default function VideosPage() {
 
-  const { data: arts = [], error, isLoading } = useSWR<Video[]>(VIDEO_JSON_URL, fetcher, {
+  const { data: video_urls = [], error, isLoading } = useSWR<Video[]>(VIDEO_JSON_URL, fetcher, {
     refreshInterval: 30000,
   });
 

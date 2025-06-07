@@ -1,94 +1,25 @@
 "use client";
+import useSWR from "swr";
 
-const video_urls = [
-  {
-    url: "https://www.youtube.com/watch?v=QJK4JnDf9EY",
-    title: "dress design/pencil sketch/drawing",
-    description: null
-  },
-  {
-    url: "https://www.youtube.com/watch?v=BcBkzbrBnJM",
-    title: "my art works😊😊 🖕🖕❤️",
-    description: null
-  },
-  {
-    url: "https://www.youtube.com/watch?v=ZGUTwzK999I",
-    title: "pastel colour /easy drawing/scenery /draw a beautiful scenery",
-    description: null
-  },
-  {
-    url: "https://www.youtube.com/watch?v=nVW-nQqZYTU",
-    title: "CD art/two minutes art/easy art",
-    description: null
-  },
-  {
-    url: "https://www.youtube.com/watch?v=S4ksjhJJtuw",
-    title: "CD art part2/two minutes art/easy craft",
-    description: null
-  },
-  {
-    url: "https://www.youtube.com/watch?v=mcVzQMPu5RU",
-    title: "soft pastel colour/easy drawing/pastel colour",
-    description: null
-  },
-  {
-    url: "https://www.youtube.com/watch?v=DyHUpPeEmUs",
-    title: "easy art/dress design",
-    description: null
-  },
-  {
-    url: "https://www.youtube.com/watch?v=RuoBNk60JeU",
-    title: "my art work a review",
-    description: null
-  },
-  {
-    url: "https://www.youtube.com/watch?v=YNRDIjcRB5M",
-    title: "turn old cd into beautiful coaster/make coaster/best from...",
-    description: null
-  },
-  {
-    url: "https://www.youtube.com/watch?v=2RdLzD4Ma8c",
-    title: "clay art/peacock on board/using clay make a beautiful peacock",
-    description: null
-  },
-  {
-    url: "https://www.youtube.com/watch?v=W1QrnJ6Nc7c",
-    title: "pattern design|easy pattern design|draw design|free hand...",
-    description: null
-  },
-  {
-    url: "https://www.youtube.com/watch?v=qvAbcTmHlm4",
-    title: "pastel colour painting|soft pastel colour painting|scenery...",
-    description: null
-  },
-  {
-    url: "https://www.youtube.com/watch?v=o1j-Mni6Slg",
-    title: "pencil sketch|face drawing|pencil shading|easy face drawing|draw...",
-    description: null
-  },
-  {
-    url: "https://www.youtube.com/watch?v=0nTkNEuiWm0",
-    title: "poster colour painting|radhe Krishna painting|lord Krishna...",
-    description: null
-  },
-  {
-    url: "https://www.youtube.com/watch?v=ndxNhiRo7r8",
-    title: "draw a design|madhubani|draw free hand design|free hand sketch",
-    description: null
-  },
-  {
-    url: "https://www.youtube.com/watch?v=P0fqT2vNQy4",
-    title: "traditional art on handmade soop|acrylic paint on soop|सूप पर...",
-    description: null
-  },
-  {
-    url: "https://www.youtube.com/watch?v=1n7nyfdKWDs",
-    title: "Sri Radha Krishna drawing|krishna painting|Radhe krishna painting",
-    description: null
-  }
-];
+const GITHUB_BASE = "https://raw.githubusercontent.com/RKR-ACC/Mock-db/main";
+const VIDEO_JSON_URL = `${GITHUB_BASE}/data/video.json`;
+const fetcher = (url: string) => fetch(url).then(res => res.json());
 
 export default function VideosPage() {
+  const { data: video_urls, error, isLoading } = useSWR(VIDEO_JSON_URL, fetcher, {
+    refreshInterval: 60000, // refresh every 60s
+  });
+
+  if (error)
+    return (
+      <p className="text-red-600 px-4 py-6">
+        Failed to load videos. Please try again later.
+      </p>
+    );
+
+  if (isLoading || !video_urls)
+    return <p className="px-4 py-6 text-gray-500">Loading videos...</p>;
+
   return (
     <div className="px-4 py-6">
       <h1 className="text-3xl font-semibold mb-2">YouTube Videos</h1>
@@ -97,8 +28,8 @@ export default function VideosPage() {
       </p>
 
       <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
-        {video_urls.map((video, index) => {
-          const videoId = video.url.split("v=")[1];
+        {video_urls.map((video: { url: string; title: string }, index: number) => {
+          const videoId = video.url.split("v=")[1]?.split("&")[0];
           return (
             <div key={index} className="w-full aspect-video">
               <iframe

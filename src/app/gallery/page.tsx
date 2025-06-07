@@ -1,6 +1,17 @@
-import arts from '../data/arts.json';
+"use client";
+import { useEffect, useState } from "react";
 
 export default function GalleryPage() {
+  const [arts, setArts] = useState([]);
+
+  useEffect(() => {
+    fetch("https://raw.githubusercontent.com/RKR-ACC/Mock-db/main/data/arts.json")
+      .then(res => res.json())
+      .then(setArts);
+  }, []);
+
+  if (arts.length === 0) return <p>Loading...</p>;
+
   return (
     <div className="px-4 py-6">
       <h1 className="text-3xl font-semibold mb-2">Gallery</h1>
@@ -13,7 +24,7 @@ export default function GalleryPage() {
             <div className="bg-white rounded-2xl shadow hover:shadow-lg transition duration-300 overflow-hidden">
               {/* Hide image on hover */}
               <img
-                src={`/gallery/${art.file_name}`}
+                src={`https://raw.githubusercontent.com/RKR-ACC/Mock-db/main/gallery/${art.file_name}`}
                 alt={art.title}
                 className="w-full h-60 object-cover group-hover:opacity-0 transition-opacity duration-300"
               />
@@ -33,7 +44,7 @@ export default function GalleryPage() {
             {/* Hover Preview Popup */}
             <div className="absolute z-20 hidden group-hover:flex flex-col items-center justify-center bg-white rounded-xl shadow-lg p-2 border transition duration-300 w-[300px] top-[-10px] left-[50%] -translate-x-1/2 scale-105">
               <img
-                src={`/gallery/${art.file_name}`}
+                src={`https://raw.githubusercontent.com/RKR-ACC/Mock-db/main/gallery/${art.file_name}`}
                 alt={art.title}
                 className="w-full h-auto rounded-md"
               />

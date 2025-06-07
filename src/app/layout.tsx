@@ -6,8 +6,30 @@ import { FaYoutube, FaFacebook } from 'react-icons/fa'
 import YouTubeBanner from '../components/YouTubeBanner'
 
 export const metadata = {
-  title: 'Art and Craft Corner',
-  description: 'Original paintings, tutorials, and crafts by Rawwi Kumari',
+  title: 'Art & Craft Corner | Original Paintings by Rawwi Kumari',
+  description: 'Explore hand-crafted artwork, folk paintings, and drawing tutorials from Rawwi Kumari. Ideal for art lovers and learners.',
+  openGraph: {
+    title: 'Art & Craft Corner',
+    description: 'Paintings, worksheets, and tutorials by Rawwi Kumari',
+    url: 'https://art-and-craft-corner.vercel.app',
+    siteName: 'Art & Craft Corner',
+    images: [
+      {
+        url: 'https://raw.githubusercontent.com/RKR-ACC/Mock-db/main/gallery/1.jpeg',
+        width: 800,
+        height: 600,
+        alt: 'Peacock Glory',
+      },
+    ],
+    locale: 'en_IN',
+    type: 'website',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Art & Craft Corner',
+    description: 'Creative works and tutorials by Rawwi Kumari',
+    images: ['https://raw.githubusercontent.com/RKR-ACC/Mock-db/main/gallery/1.jpeg'],
+  },
 }
 
 export default function RootLayout({ children }: { children: ReactNode }) {

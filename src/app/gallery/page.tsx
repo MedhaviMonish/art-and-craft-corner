@@ -1,6 +1,15 @@
 "use client";
 import useSWR from "swr";
 import { useMemo } from "react";
+type Art = {
+  file_name: string;
+  title: string;
+  description: string;
+  medium: string;
+  price_inr: number;
+  available: boolean;
+  tags: string[];
+};
 
 const GITHUB_BASE = "https://raw.githubusercontent.com/RKR-ACC/Mock-db/main";
 const JSON_URL = `${GITHUB_BASE}/data/arts.json`;
@@ -8,8 +17,8 @@ const getImageUrl = (file: string) => `${GITHUB_BASE}/gallery/${file}`;
 const fetcher = (url: string) => fetch(url).then(res => res.json());
 
 export default function GalleryPage() {
-  const { data: arts, error, isLoading } = useSWR(JSON_URL, fetcher, {
-    refreshInterval: 30000, // refresh every 30s in background
+  const { data: arts = [], error, isLoading } = useSWR<Art[]>(JSON_URL, fetcher, {
+    refreshInterval: 30000,
   });
 
   const paintings = useMemo(() => (arts || []).filter(p => p.available), [arts]);

@@ -1,13 +1,19 @@
 "use client";
 import useSWR from "swr";
+type Video = {
+  url: string;
+  title: string;
+  description: string|null;
+};
 
 const GITHUB_BASE = "https://raw.githubusercontent.com/RKR-ACC/Mock-db/main";
 const VIDEO_JSON_URL = `${GITHUB_BASE}/data/video.json`;
 const fetcher = (url: string) => fetch(url).then(res => res.json());
 
 export default function VideosPage() {
-  const { data: video_urls, error, isLoading } = useSWR(VIDEO_JSON_URL, fetcher, {
-    refreshInterval: 60000, // refresh every 60s
+
+  const { data: arts = [], error, isLoading } = useSWR<Video[]>(VIDEO_JSON_URL, fetcher, {
+    refreshInterval: 30000,
   });
 
   if (error)

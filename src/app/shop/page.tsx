@@ -1,19 +1,28 @@
 "use client";
-import { useEffect, useState } from "react";
+import useSWR from "swr";
+import { useMemo } from "react";
+
+const GITHUB_BASE = "https://raw.githubusercontent.com/RKR-ACC/Mock-db/main";
+const JSON_URL = `${GITHUB_BASE}/data/arts.json`;
+const getImageUrl = (file: string) => `${GITHUB_BASE}/gallery/${file}`;
+const fetcher = (url: string) => fetch(url).then(res => res.json());
 
 export default function ShopPage() {
+  const { data: arts, error, isLoading } = useSWR(JSON_URL, fetcher, {
+    refreshInterval: 30000,
+  });
 
-  const [arts, setArts] = useState([]);
+  const availablePaintings = useMemo(() => (arts || []).filter(p => p.available), [arts]);
 
-  useEffect(() => {
-    fetch("https://raw.githubusercontent.com/RKR-ACC/Mock-db/main/data/arts.json")
-      .then(res => res.json())
-      .then(setArts);
-  }, []);
+  if (error)
+    return (
+      <p className="text-red-600 px-4 py-6">
+        Failed to load artworks. Please try again later.
+      </p>
+    );
 
-  if (arts.length === 0) return <p>Loading...</p>;
-
-  const availablePaintings = arts.filter(p => p.available);
+  if (isLoading || !arts)
+    return <p className="px-4 py-6 text-gray-500">Loading shop...</p>;
 
   return (
     <div className="px-4 py-6">
@@ -26,19 +35,17 @@ export default function ShopPage() {
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
         {availablePaintings.map((art, index) => (
           <div key={index} className="relative cursor-pointer">
-            {/* Only wrap image in group */}
             <div className="group relative">
-              {/* Hide image on hover */}
               <img
-                src={`https://raw.githubusercontent.com/RKR-ACC/Mock-db/main/gallery/${art.file_name}`}
+                loading="lazy"
+                src={getImageUrl(art.file_name)}
                 alt={art.title}
                 className="w-full h-60 object-cover group-hover:opacity-0 transition-opacity duration-300"
               />
-
-              {/* Hover Preview Popup */}
               <div className="absolute z-20 hidden group-hover:flex flex-col items-center justify-center bg-white rounded-xl shadow-lg p-2 border transition duration-300 w-[300px] top-[-10px] left-[50%] -translate-x-1/2 scale-105">
                 <img
-                  src={`https://raw.githubusercontent.com/RKR-ACC/Mock-db/main/gallery/${art.file_name}`}
+                  loading="lazy"
+                  src={getImageUrl(art.file_name)}
                   alt={art.title}
                   className="w-full h-auto rounded-md"
                 />
@@ -49,7 +56,6 @@ export default function ShopPage() {
               </div>
             </div>
 
-            {/* Static Details Below */}
             <div className="p-4 bg-white rounded-b-2xl shadow">
               <h2 className="text-lg font-semibold">{art.title}</h2>
               <p className="text-gray-600 text-sm">{art.medium}</p>
@@ -68,7 +74,9 @@ export default function ShopPage() {
       </div>
 
       {availablePaintings.length === 0 && (
-        <p className="text-gray-500 mt-6">No artworks are currently in stock. Please check back soon!</p>
+        <p className="text-gray-500 mt-6">
+          No artworks are currently in stock. Please check back soon!
+        </p>
       )}
     </div>
   );

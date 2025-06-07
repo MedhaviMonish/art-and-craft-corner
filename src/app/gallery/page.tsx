@@ -1,30 +1,44 @@
 "use client";
-import { useEffect, useState } from "react";
+import useSWR from "swr";
+import { useMemo } from "react";
+
+const GITHUB_BASE = "https://raw.githubusercontent.com/RKR-ACC/Mock-db/main";
+const JSON_URL = `${GITHUB_BASE}/data/arts.json`;
+const getImageUrl = (file: string) => `${GITHUB_BASE}/gallery/${file}`;
+const fetcher = (url: string) => fetch(url).then(res => res.json());
 
 export default function GalleryPage() {
-  const [arts, setArts] = useState([]);
+  const { data: arts, error, isLoading } = useSWR(JSON_URL, fetcher, {
+    refreshInterval: 30000, // refresh every 30s in background
+  });
 
-  useEffect(() => {
-    fetch("https://raw.githubusercontent.com/RKR-ACC/Mock-db/main/data/arts.json")
-      .then(res => res.json())
-      .then(setArts);
-  }, []);
+  const paintings = useMemo(() => (arts || []).filter(p => p.available), [arts]);
 
-  if (arts.length === 0) return <p>Loading...</p>;
+  if (error)
+    return (
+      <p className="text-red-600 px-4 py-6">
+        Failed to load artworks. Please check your connection or try again later.
+      </p>
+    );
+
+  if (isLoading || !arts)
+    return <p className="px-4 py-6 text-gray-500">Loading gallery...</p>;
 
   return (
     <div className="px-4 py-6">
       <h1 className="text-3xl font-semibold mb-2">Gallery</h1>
-      <p className="text-gray-700 mb-6">A showcase of watercolor, oil, and acrylic paintings.</p>
+      <p className="text-gray-700 mb-6">
+        A showcase of watercolor, oil, and acrylic paintings.
+      </p>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-        {arts.map((art, index) => (
+        {paintings.map((art, index) => (
           <div key={index} className="relative group cursor-pointer">
             {/* Thumbnail Card */}
             <div className="bg-white rounded-2xl shadow hover:shadow-lg transition duration-300 overflow-hidden">
-              {/* Hide image on hover */}
               <img
-                src={`https://raw.githubusercontent.com/RKR-ACC/Mock-db/main/gallery/${art.file_name}`}
+                loading="lazy"
+                src={getImageUrl(art.file_name)}
                 alt={art.title}
                 className="w-full h-60 object-cover group-hover:opacity-0 transition-opacity duration-300"
               />
@@ -33,10 +47,12 @@ export default function GalleryPage() {
                 <p className="text-gray-600 text-sm">{art.medium}</p>
                 <span
                   className={`inline-block mt-2 text-xs font-medium px-2 py-1 rounded-full ${
-                    art.available ? 'bg-green-100 text-green-700' : 'bg-gray-200 text-gray-500'
+                    art.available
+                      ? "bg-green-100 text-green-700"
+                      : "bg-gray-200 text-gray-500"
                   }`}
                 >
-                  {art.available ? 'In stock' : 'Sold'}
+                  {art.available ? "In stock" : "Sold"}
                 </span>
               </div>
             </div>
@@ -44,7 +60,8 @@ export default function GalleryPage() {
             {/* Hover Preview Popup */}
             <div className="absolute z-20 hidden group-hover:flex flex-col items-center justify-center bg-white rounded-xl shadow-lg p-2 border transition duration-300 w-[300px] top-[-10px] left-[50%] -translate-x-1/2 scale-105">
               <img
-                src={`https://raw.githubusercontent.com/RKR-ACC/Mock-db/main/gallery/${art.file_name}`}
+                loading="lazy"
+                src={getImageUrl(art.file_name)}
                 alt={art.title}
                 className="w-full h-auto rounded-md"
               />
@@ -56,6 +73,12 @@ export default function GalleryPage() {
           </div>
         ))}
       </div>
+
+      {paintings.length === 0 && (
+        <p className="text-gray-500 mt-6">
+          No artworks are currently in stock. Please check back soon!
+        </p>
+      )}
     </div>
   );
 }
